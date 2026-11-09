@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>阿犬的資料庫｜互動個人作品集</title>
+<style>
+:root{--g:#173c32;--g2:#28594b;--c:#f3ead6;--p:#fbf6e9;--ink:#292925;--o:#d8892f;--r:#9b4d38;--line:#b7a98d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:repeating-linear-gradient(0deg,rgba(40,35,20,.025) 0 1px,transparent 1px 4px),var(--c);color:var(--ink);font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.8}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.14;background-image:radial-gradient(#554d3e .5px,transparent .6px);background-size:8px 8px;z-index:99}
+a{color:inherit;text-decoration:none}button{font:inherit}
+.top{position:sticky;top:0;z-index:20;background:var(--g);color:var(--c);border-bottom:4px solid var(--o);padding:10px 22px;display:flex;justify-content:space-between}
+.status{cursor:pointer;font:700 .75rem monospace}
+.layout{display:grid;grid-template-columns:250px 1fr;max-width:1450px;margin:auto}.nav{position:sticky;top:52px;height:calc(100vh - 52px);padding:30px 18px;background:#eee3cb;border-right:1px dashed var(--line)}
+.nav small{color:var(--r);font:700 .75rem monospace;letter-spacing:.15em}.links{margin-top:15px}.links a{display:block;padding:7px 10px;margin:3px 0;border-left:3px solid transparent;font-family:monospace}.links a:hover,.links a.active{background:#e2d5b9;border-left-color:var(--o);transform:translateX(3px)}
+.main{padding:50px clamp(18px,5vw,75px) 80px;min-width:0}.page{display:none}.page.active{display:block;animation:pageIn .45s ease}.paper{background:var(--p);border:1px solid #d0c3a8;box-shadow:0 12px 30px rgba(30,35,25,.12);padding:clamp(22px,4vw,48px);position:relative;margin-bottom:25px}.paper:before{content:"";position:absolute;top:-9px;left:28px;width:75px;height:18px;background:#d8892f66;transform:rotate(-2deg)}
+.eyebrow{font:700 .75rem monospace;letter-spacing:.16em;color:var(--r)}h1,h2,h3{font-family:"Noto Serif TC","PMingLiU",serif;color:var(--g);line-height:1.25}h1{font-size:clamp(2.5rem,7vw,5.8rem);margin:.15em 0}h2{font-size:clamp(1.7rem,3vw,2.7rem)}h3{font-size:1.25rem}.lead{font-size:1.1rem}.hand{font-family:"Comic Sans MS","Noto Sans TC",cursive;color:var(--r);display:inline-block;transform:rotate(-2deg)}.stamp{display:inline-block;border:3px solid var(--r);color:var(--r);padding:4px 11px;font:900 .75rem monospace;transform:rotate(-7deg);margin:7px}.tag{display:inline-block;background:var(--g);color:var(--c);padding:3px 9px;font:700 .7rem monospace;margin:3px}
+.btn{display:inline-block;background:var(--g);color:var(--c);border:0;padding:12px 19px;cursor:pointer;box-shadow:5px 5px 0 var(--o);transition:.15s}.btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--o)}.btn.alt{background:transparent;color:var(--g);border:2px solid var(--g);box-shadow:none}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card{background:#f7efdf;border:1px solid var(--line);padding:20px;min-height:150px;position:relative;transition:.2s}.card:nth-child(2n){transform:rotate(.5deg)}.card:nth-child(3n){transform:rotate(-.5deg)}.card:hover{transform:translateY(-5px) rotate(0);box-shadow:0 10px 25px #443b2a20}.num{font:700 .72rem monospace;color:var(--r)}
+.profile{display:grid;grid-template-columns:260px 1fr;gap:25px}.slot{min-height:240px;border:2px dashed #a89b82;background:#eee4cf;display:flex;align-items:center;justify-content:center;text-align:center;padding:18px;color:#766e60;position:relative}.slot:after{content:"IMAGE PLACEHOLDER";position:absolute;right:8px;top:7px;font:700 .6rem monospace;color:var(--r)}
+.table{display:grid;grid-template-columns:145px 1fr;border-top:1px solid var(--line)}.table div{padding:9px;border-bottom:1px dashed var(--line)}.label{font-weight:900;color:var(--g);background:#eee4cf}.note{background:#f1dfb9;border-left:5px solid var(--o);padding:13px 16px;margin:18px 0}
+.skill{min-height:175px;perspective:900px;cursor:pointer}.skill-inner{height:100%;min-height:175px;position:relative;transition:.5s;transform-style:preserve-3d}.skill.flip .skill-inner{transform:rotateY(180deg)}.front,.back{position:absolute;inset:0;padding:20px;backface-visibility:hidden;background:#f7efdf;border:1px solid var(--line)}.back{transform:rotateY(180deg);background:#e9ddc4}
+.timeline{position:relative}.timeline:before{content:"";position:absolute;left:18px;top:0;bottom:0;border-left:3px dashed var(--g)}.event{position:relative;padding-left:55px;margin-bottom:24px}.dot{position:absolute;left:8px;top:12px;width:21px;height:21px;border-radius:50%;background:var(--o);border:4px solid var(--g)}
+.progress{border:1px solid var(--line);background:#f7efdf;padding:18px;cursor:pointer}.detail{display:none;border-top:1px dashed var(--line);margin-top:12px;padding-top:10px}.progress.open .detail{display:block}
+.creature{position:fixed;right:22px;bottom:18px;width:80px;height:65px;z-index:40;cursor:pointer;animation:peek 5s infinite}.body{position:absolute;left:10px;top:10px;width:60px;height:45px;background:var(--g);border:3px solid #102d26;border-radius:45% 55% 45% 50%}.eye{position:absolute;top:21px;width:9px;height:12px;background:var(--c);border-radius:50%;z-index:2}.eye:after{content:"";position:absolute;left:3px;top:3px;width:4px;height:7px;background:#222;border-radius:50%}.e1{left:27px}.e2{left:44px}.foot{position:absolute;bottom:4px;width:17px;height:10px;background:var(--o);border-radius:50%;z-index:-1}.f1{left:18px}.f2{left:48px}@keyframes peek{0%,86%,100%{transform:none}91%{transform:translateY(-8px) rotate(-4deg)}}
+.bubble{display:none;position:fixed;right:108px;bottom:65px;max-width:270px;background:var(--p);border:2px solid var(--g);padding:10px 14px;z-index:41;box-shadow:0 10px 25px #2223}.bubble.show{display:block}.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,30px);opacity:0;background:var(--g);color:var(--c);border:2px solid var(--o);padding:10px 18px;z-index:60;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{display:none;position:fixed;inset:0;background:#14251dbb;z-index:50;padding:6vh 6vw;overflow:auto}.modal.show{display:block}.modalbox{max-width:850px;margin:auto;background:var(--p);padding:38px;box-shadow:0 20px 70px #111}.close{float:right;border:2px solid var(--g);background:transparent;padding:4px 10px;cursor:pointer}
+.loading{position:fixed;inset:0;background:var(--g);color:var(--c);z-index:100;display:flex;align-items:center;justify-content:center;flex-direction:column}.loading.hide{animation:fade .6s forwards}@keyframes fade{to{opacity:0;visibility:hidden}}.loadbar{width:260px;height:12px;border:2px solid var(--c);margin:15px}.loadbar span{display:block;height:100%;width:0;background:var(--o);animation:load 1.4s forwards}@keyframes load{to{width:100%}}
+footer{text-align:center;padding:35px;color:#716958;font:700 .72rem monospace}.hidden{display:none!important}
+@media(max-width:900px){.layout{display:block}.nav{position:relative;top:0;height:auto;border-right:0;border-bottom:1px dashed var(--line);padding:14px}.links{display:flex;overflow:auto;gap:4px}.links a{white-space:nowrap}.main{padding:30px 16px}.profile,.grid2,.grid3{grid-template-columns:1fr}.table{grid-template-columns:120px 1fr}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="loading" id="loading"><div class="eyebrow" style="color:var(--o)">ARCHIVE SYSTEM</div><h2 style="color:var(--c)">阿犬的資料庫</h2><div>LOADING PERSONAL DATA...</div><div class="loadbar"><span></span></div><div>ACCESS GRANTED</div></div>
+
+<header class="top"><b>阿犬的資料庫 / KEN DATABASE</b><span class="status" id="status">ARCHIVE STATUS: OPEN</span></header>
+<div class="layout">
+<aside class="nav">
+<small>FILE INDEX / 檔案索引</small>
+<div class="links">
+<a href="#home">00　HOME</a><a href="#about">01　ABOUT</a><a href="#skills">02　SKILLS</a><a href="#works">03　WORKS</a><a href="#journey">04　JOURNEY</a><a href="#character">05　CHARACTER</a><a href="#campus">06　CAMPUS</a><a href="#next">07　NEXT</a>
+<a href="#secret">???　SECRET FILE</a>
+</div><p class="hand">請選擇一份檔案。</p>
+</aside>
+
+<main class="main">
+<section id="home" class="page active">
+<div class="paper"><div class="eyebrow">FILE NO. KEN-0001 / PERSONAL CREATIVE DATABASE</div><h1>阿犬的資料庫</h1><p class="lead">你好!我是犬!<br>是個神奇又有點怪怪的人(?)<br>很高興認識你!</p>
+<a class="btn" href="#about">▣ 進入資料庫</a> <span class="stamp">已確認</span><span class="tag">這是一個正常的資料庫</span><p class="hand">← （大概）</p></div>
+<div class="paper"><div class="eyebrow">SYSTEM NOTE</div><h2>歡迎調查。</h2><p>這裡收錄一名多媒體動畫系學生的個人資料、技能、作品、學習歷程，以及一些沒有必要存在的小東西。</p><div class="note">提示：網站裡可能藏著一隻奇怪的生物。看到牠的話，可以點一下。</div><button class="btn alt" id="fileNo">FILE NO. KEN-0001</button> <button class="btn alt" id="dont">【不要按】</button></div>
+</section>
+
+<section id="about" class="page">
+<div class="paper"><div class="eyebrow">01 / ABOUT</div><h1>認識一下我</h1><p>你好，我是柯向恩，目前就讀於台南應用科技大學多媒體動畫系。</p><p>喜歡插畫、動畫與各種手作創作，平時習慣觀察生活中的細節，也喜歡嘗試不同的媒材與表現方式。比起單純追求作品的完成度，我更享受從無到有的發想與製作過程。</p><p>有時候會冒出一些奇怪的想法，並試著把它們變成故事、角色或有趣的作品。希望未來能持續探索不同的創作形式，將腦中的想像轉化成真正能被看見的東西。</p></div>
+<div class="paper"><div class="profile"><!-- 圖片位置：代表角色圖片 -->
+<div class="slot">【代表角色圖片放置處】<br>建議：角色立繪／Q版角色／個人代表圖<br><small>可替換為 assets/character.png</small></div>
+<div><div class="eyebrow">PERSONAL FILE</div><h2>柯向恩 / 軍犬 / 莫玄</h2><div class="table">
+<div class="label">姓名</div><div>柯向恩</div><div class="label">暱稱</div><div>軍犬／莫玄</div><div class="label">個性特質</div><div>友善、內向</div><div class="label">身分</div><div>多媒體動畫系學生</div><div class="label">興趣</div><div>插畫、動畫、手作</div><div class="label">喜歡的事</div><div>觀察、創作、嘗試新事物、觀察周圍、手做小物</div><div class="label">個人特色</div><div>細心、慢工、喜歡不同的觀點</div><div class="label">未來方向</div><div>動畫與互動式創作</div></div></div></div></div>
+<div class="paper"><div class="eyebrow">THREE KEYWORDS</div><div class="grid3"><div class="card"><div class="num">01</div><h3>觀察者 OBSERVER</h3><p>喜歡注意日常中容易被忽略的細節。</p></div><div class="card"><div class="num">02</div><h3>創作者 CREATOR</h3><p>喜歡透過不同媒材表達想法。</p></div><div class="card"><div class="num">03</div><h3>實驗者 EXPERIMENTER</h3><p>對新工具、新技術和不同創作方式保持好奇。</p></div></div></div>
+</section>
+
+<section id="skills" class="page">
+<div class="paper"><div class="eyebrow">02 / SKILLS DATABASE</div><h1>我會的事情</h1><p>目前持續學習多媒體相關技能，從平面繪製、動畫製作到立體手作，希望能透過不同媒材發展自己的創作能力。</p><div class="note">這裡故意不使用「技能 80%」之類的進度條。學習中的東西很難用一條橫線決定到底有幾％。</div></div>
+<div class="paper"><div class="grid2" id="skillsGrid"></div></div>
+<div class="paper"><div class="eyebrow">MINI GAME</div><h2>把檔案整理好</h2><p>把檔案拖到正確分類。手機版可以直接點擊檔案後選分類。</p><div class="grid2" id="sortItems"></div><div class="grid2" style="margin-top:16px"><div class="paper zone" data-zone="動畫">【動畫】</div><div class="paper zone" data-zone="手作">【手作】</div><div class="paper zone" data-zone="遊戲">【遊戲】</div><div class="paper zone" data-zone="劇本">【劇本】</div></div></div>
+</section>
+
+<section id="works" class="page">
+<div class="paper"><div class="eyebrow">03 / WORKS ARCHIVE</div><h1>精選作品 WORKS</h1><p>請從檔案櫃中抽取一份作品。每件作品都預留了圖片位置。</p><div class="note">圖片位置已標出。建議每件作品至少放 1 張封面圖；之後可以再增加製作過程圖。</div></div>
+<div class="paper"><div class="grid2" id="worksGrid"></div></div>
+</section>
+
+<section id="journey" class="page">
+<div class="paper"><div class="eyebrow">04 / JOURNEY</div><h1>我的學習旅程</h1><p>從高中時期的社團參與，到進入大學接觸多媒體動畫，我逐漸接觸不同領域的創作方式，也開始累積屬於自己的作品與經驗。</p></div>
+<div class="paper"><div class="timeline" id="timeline"></div></div>
+<div class="paper"><span class="stamp">SYSTEM NOTE</span><p>這個人到底學了多少東西？</p><p class="hand">仍在增加。</p><p>好像沒有停止的意思。</p></div>
+</section>
+
+<section id="character" class="page">
+<div class="paper"><div class="eyebrow">05 / CHARACTER</div><h1>我是一個怎樣的創作者？</h1><div class="grid2">
+<div class="card"><div class="num">TRAIT 01</div><h3>細節觀察</h3><p>習慣留意細節，並將觀察轉化成創作靈感。</p></div><div class="card"><div class="num">TRAIT 02</div><h3>耐心製作</h3><p>喜歡一步一步完成作品，尤其是需要手工製作的項目。</p></div><div class="card"><div class="num">TRAIT 03</div><h3>創意發想</h3><p>喜歡嘗試不同觀點，讓作品呈現不一樣的風格。</p></div><div class="card"><div class="num">TRAIT 04</div><h3>自主學習</h3><p>對新軟體與創作工具保持興趣，願意透過實作累積經驗。</p></div></div></div>
+<div class="paper"><div class="eyebrow">LEARNING NOTE</div><h2>學習心得</h2><p>在不同課程與創作過程中，我發現自己對於實際動手製作特別有興趣。無論是數位繪圖、動畫，或是需要耐心完成的手工作品，都能讓我從過程中獲得不同的經驗。</p><p>每一次的嘗試不一定都能得到理想成果，但也讓我逐漸了解自己的喜好與不足。未來希望能持續累積作品，並將不同領域的技能結合，創造出更有個人特色的內容。</p><span class="hand">「這張紙寫得很認真。」</span><br><span class="hand">「沒有偷偷畫小怪獸。」</span><!-- 圖片位置：學習／手作過程照 --><div class="slot" style="margin-top:18px">【學習／手作過程圖片放置處】</div></div>
+</section>
+
+<section id="campus" class="page">
+<div class="paper"><div class="eyebrow">06 / CAMPUS RECORD</div><h1>校園經歷</h1><p>這些紀錄不是很像履歷，但它們確實構成了我大學生活的一部分。</p><div class="grid3" id="campusGrid"></div></div>
+<div class="paper"><div class="eyebrow">PHOTO LOG</div><h2>活動紀錄照片</h2><!-- 圖片位置：活動照／布置照／展覽照 --><div class="grid3"><div class="slot">【活動照片 01】</div><div class="slot">【活動照片 02】</div><div class="slot">【活動照片 03】</div></div></div>
+</section>
+
+<section id="next" class="page">
+<div class="paper"><div class="eyebrow">07 / NEXT</div><h1>NEXT｜接下來要去哪裡？</h1><p>這裡收錄一些還沒有完成的檔案。</p><div class="note">完成度：未知。　預計完成時間：不知道。　是否放棄：目前沒有。　是否會拖延：有可能。</div></div>
+<div class="paper"><div class="grid2" id="nextGrid"></div></div>
+</section>
+
+<section id="secret" class="page">
+<div class="paper"><div class="eyebrow">??? / SECRET FILE</div><h1>阿犬的無意義資料庫</h1><p>這一頁完全不是履歷。</p><div class="grid2"><div class="card"><div class="num">001</div><h3>觀察紀錄</h3><p>喜歡觀察周圍。</p></div><div class="card"><div class="num">002</div><h3>異常紀錄</h3><p>有時候會冒出奇怪的想法。</p></div><div class="card"><div class="num">003</div><h3>創作紀錄</h3><p>喜歡把奇怪的東西做成作品。</p></div><div class="card"><div class="num">004</div><h3>停止創作檢查</h3><p>目前沒有找到停止創作的證據。</p></div><div class="card"><div class="num">005</div><h3>證詞</h3><p>小生物拒絕提供證詞。</p></div></div></div>
+<div class="paper"><div class="eyebrow">HIDDEN GAME</div><h2>尋找小怪獸</h2><p>小生物會出現在網站各處。你點到牠 5 次，就算解鎖。</p><p>目前找到：<b id="count">0</b> / 5</p><button class="btn" onclick="toast('牠就在畫面右下角。你已經找到牠了。')">提示</button></div>
+</section>
+</main></div>
+
+<div class="creature" id="creature" aria-label="奇怪的小生物"><div class="body"></div><div class="eye e1"></div><div class="eye e2"></div><div class="foot f1"></div><div class="foot f2"></div></div>
+<div class="bubble" id="bubble"></div><div class="toast" id="toast"></div>
+<div class="modal" id="modal"><div class="modalbox"><button class="close" id="close">CLOSE ×</button><div class="eyebrow">OPENING FILE...</div><h2 id="modalTitle"></h2><div id="modalBody"></div></div></div>
+<footer>━━━━━━━━━━━━━━━━━━━━━━━━　ARCHIVE END　━━━━━━━━━━━━━━━━━━━━━━━━<br>資料庫目前沒有更多資料。<br>或者……真的嗎？<br><br>© KEN DATABASE　/　FILE STATUS : OPEN</footer>
+
+<script>
+const skillData=[
+["美術創作","插畫、草圖、角色發想","「畫得出來。」\\n「有時候先畫再想。」"],
+["動畫製作","2D 動畫、動態表現","「關鍵影格是朋友。」"],
+["3D 製作","Blender 建模與基礎操作","「還在學習中。」\\n「目前沒有變成 Blender 大師。」"],
+["影像處理","After Effects 基礎操作","「正在和關鍵影格培養感情。」"],
+["手作工藝","皮革、黏土、紙類手作","「需要耐心。」"],
+["企劃創作","劇本、故事、角色設定","「奇怪的想法偶爾會自己出現。」"],
+["網頁設計","HTML、CSS、JavaScript 學習","「網頁可以動。」\\n「有時候。」"],
+["團隊行政","資料整理、表單製作、活動執行","「資料整理也是一種創作。」"]
+];
+const works=[
+["01","Carved Away","概念動畫","一個關於自我雕刻與追尋理想形體的故事。透過木製人物不斷雕刻自己的過程，呈現對於自我認同與存在的思考。","動畫概念／故事設計","carved-away.jpg"],
+["02","當邏輯燃燒時，我們談論草莓蛋糕","原創劇本","以情緒受到嚴格控制的世界為背景，描寫角色在規則與情感之間的衝突，透過草莓蛋糕象徵不完美卻真實的情感。","原創劇本／世界觀設定","strawberry.jpg"],
+["03","皮革與手作","工藝創作","從基礎皮革加工開始，嘗試製作證件套、小馬吊飾、零錢包與自主發想作品，學習材料處理與手工縫製。","皮革工藝／立體手作","leather.jpg"],
+["04","Teto 麵包大暴走","互動遊戲","以趣味角色與麵包為主題，構思一款充滿奇怪事件與隱藏彩蛋的互動小遊戲，結合角色移動、物品收集與特殊事件。","遊戲企劃／HTML、CSS、JavaScript","teto.jpg"],
+["05","Pixel Focus Planet","遊戲企劃","結合專注計時與像素收集概念，將專注時間轉換成能量，逐步建立自己的星球與動物收藏。","遊戲概念／互動設計","pixel.jpg"],
+["06","插畫與動畫課程作品","課堂創作","收錄學習過程中的插畫、動畫練習與其他視覺創作，記錄不同階段的嘗試與風格探索。","插畫／動畫／課堂作品","class.jpg"]
+];
+const journey=[
+["高中時期","後壁高中","參與校內社團活動，曾擔任養蜂社社長，培養活動規劃與團隊合作經驗，也曾參與圖書館志工服務。"],
+["大學時期","台南應用科技大學","進入多媒體動畫系，開始接觸插畫、動畫、3D 建模、影像處理及數位創作等不同領域。"],
+["創作累積","多元媒材探索","透過課堂與個人練習，嘗試皮革工藝、黏土塑型、劇本創作與遊戲企劃，逐漸發展自己的創作方向。"],
+["校園參與","系學會文書組","參與系學會行政與活動籌備工作，負責資料整理、名單管理、表單製作及活動現場支援，累積團隊合作與執行經驗。"],
+["現在","持續探索","持續學習數位工具與網頁程式，嘗試將動畫、互動設計與個人創作結合，探索更多可能性。"]
+];
+const campus=["系學會文書組","活動籌備","活動場地布置","名單與資料整理","表單製作","活動現場支援","系上競賽或展覽參與"];
+const next=["精進動畫與角色動態設計","加強 Blender 3D 製作能力","學習網頁與互動程式設計","嘗試更多不同的手作媒材","製作完整的個人原創作品","探索動畫與互動產品的結合"];
+const msgs=["你剛剛有看到一隻狗嗎？","……","我不知道為什麼我在這裡。","這個網站有點冷。","你點我幹嘛。","今天也是沒有用的一天。","資料庫沒有記載我的出生日期。","我懷疑這裡有一個 BUG。","你知道草莓蛋糕去哪裡了嗎？","不要看我。","看什麼看。","……你好。","我剛剛是不是出現過？","此對話沒有任何重要性。","恭喜你浪費了 3 秒。","我也不知道這個按鈕是幹嘛的。","這裡應該有一個很重要的東西。","但我忘了。","阿犬說你今天看起來不錯。","我亂講的。"];
+
+function toast(t){let x=document.getElementById("toast");x.textContent=t;x.classList.add("show");clearTimeout(window.t);window.t=setTimeout(()=>x.classList.remove("show"),1800)}
+function render(){
+ document.getElementById("skillsGrid").innerHTML=skillData.map((s,i)=>`<div class="skill" onclick="this.classList.toggle('flip')"><div class="skill-inner"><div class="front"><div class="eyebrow">SKILL ${String(i+1).padStart(2,'0')}</div><h3>${s[0]}</h3><p>${s[1]}</p><span class="tag">CLICK TO FLIP</span></div><div class="back"><div class="eyebrow">FILE NOTE</div><h3>${s[0]}</h3><p style="white-space:pre-line">${s[2]}</p><span class="hand">翻回去也可以。</span></div></div></div>`).join("");
+ document.getElementById("worksGrid").innerHTML=works.map(w=>`<div class="card"><div class="num">${w[0]}</div><h3>${w[1]}</h3><p>${w[2]}<br><span class="tag">${w[4]}</span></p><button class="btn" onclick="openWork('${w[0]}')">VIEW FILE</button></div>`).join("");
+ document.getElementById("timeline").innerHTML=journey.map(j=>`<div class="event"><span class="dot"></span><div class="paper"><div class="eyebrow">${j[0]}</div><h2>${j[1]}</h2><p>${j[2]}</p></div></div>`).join("");
+ document.getElementById("campusGrid").innerHTML=campus.map((x,i)=>`<div class="card"><div class="num">CAMPUS ${String(i+1).padStart(2,'0')}</div><h3>${x}</h3><p>【紀錄狀態】 已完成／持續累積。</p></div>`).join("");
+ document.getElementById("nextGrid").innerHTML=next.map((x,i)=>`<div class="progress" onclick="this.classList.toggle('open')"><div class="eyebrow">IN PROGRESS / ${String(i+1).padStart(2,'0')}</div><h3>${x}</h3><div class="detail">任務狀態：進行中。<br>完成度：未知。<br>預計完成時間：不知道。<br>是否放棄：目前沒有。<br>是否會拖延：有可能。</div></div>`).join("");
+}
+function openWork(id){
+ const w=works.find(x=>x[0]===id);if(!w)return;
+ document.getElementById("modalTitle").textContent=w[1];
+ document.getElementById("modalBody").innerHTML=`<div class="slot">【作品圖片放置處】<br>assets/works/${w[5]}<br><small>請把你的作品圖片放進 assets/works/ 後，把這個區塊改成 &lt;img&gt; 即可。</small></div><p>${w[3]}</p><p><b>作品類型：</b>${w[4]}</p>${w[0]==="04"?'<p class="hand">麵包拒絕被分類。</p>':''}`;
+ document.getElementById("modal").classList.add("show");
+}
+function route(){
+ let id=location.hash.replace("#","")||"home";if(!document.getElementById(id))id="home";
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
+ document.querySelectorAll(".links a").forEach(a=>a.classList.toggle("active",a.getAttribute("href")==="#"+id));
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(id==="secret")document.getElementById("count").textContent=Math.min(+(localStorage.getItem("creatureCount")||0),5);
+}
+document.addEventListener("DOMContentLoaded",()=>{
+ render();route();window.addEventListener("hashchange",route);
+ setTimeout(()=>document.getElementById("loading").classList.add("hide"),1500);
+ document.getElementById("close").onclick=()=>document.getElementById("modal").classList.remove("show");
+ document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")e.target.classList.remove("show")});
+ document.getElementById("status").onclick=()=>{let s=["ARCHIVE STATUS: OPEN","ARCHIVE STATUS: CONFUSED","ARCHIVE STATUS: PROBABLY FINE","ARCHIVE STATUS: HELP"];let i=+(localStorage.getItem("status")||0);i=(i+1)%s.length;localStorage.setItem("status",i);document.getElementById("status").textContent=s[i]};
+ document.getElementById("fileNo").onclick=()=>{let i=+(localStorage.getItem("fileClicks")||0)+1;localStorage.setItem("fileClicks",i);toast(["你真的點了。","為什麼？","……","請停止。","好啦給你點。★"][Math.min(i-1,4)])};
+ document.getElementById("dont").onclick=()=>toast("你果然按了。");
+ document.getElementById("creature").onclick=()=>{let b=document.getElementById("bubble");b.textContent=msgs[Math.floor(Math.random()*msgs.length)];b.classList.add("show");setTimeout(()=>b.classList.remove("show"),2600);let n=+(localStorage.getItem("creatureCount")||0)+1;localStorage.setItem("creatureCount",n);if(n===5)toast("隱藏紀錄解鎖：你已經點牠 5 次了。")};
+});
+</script>
+</body>
+</html>
